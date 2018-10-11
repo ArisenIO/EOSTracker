@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
-import { EosService } from '../../services/eos.service';
+import { RsnService } from '../../services/rsn.service';
 
 @Component({
   selector: 'app-console',
@@ -13,19 +13,19 @@ export class ConsoleComponent implements OnInit {
   result$;
 
   constructor(
-    private eosService: EosService
+    private rsnService: RsnService
   ) { }
 
   ngOnInit() {
-    this.apiEndpoint$ = this.eosService.apiEndpoint$;
+    this.apiEndpoint$ = this.rsnService.apiEndpoint$;
   }
 
   getInfo() {
-    this.result$ = from(this.eosService.eos.getInfo({}));
+    this.result$ = from(this.rsnService.rsn.getInfo({}));
   }
 
   getBlock(block_num_or_id: number) {
-    this.result$ = from(this.eosService.eos.getBlock(block_num_or_id));
+    this.result$ = from(this.rsnService.rsn.getBlock(block_num_or_id));
   }
 
 }

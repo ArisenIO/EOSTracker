@@ -1,26 +1,26 @@
 import {Injectable} from '@angular/core';
-import * as Eos from 'eosjs';
+import * as Rsn from 'arisenjsv1';
 import {LocalStorage} from 'ngx-webstorage';
 
 @Injectable()
-export class ScatterService {
+export class ArkIdService {
   @LocalStorage()
   identity: any;
-  eos: any;
-  scatter: any;
+  rsn: any;
+  arkid: any;
   network: any;
 
   load() {
-    this.scatter = (<any>window).scatter;
+    this.arkid = (<any>window).arkid;
 
     this.network = {
-      blockchain: 'eos',
-      host: 'api1.eosdublin.io',
+      blockchain: 'rsn',
+      host: 'greatchain.arisennodes.io',
       port: 443,
-      chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
+      chainId: 'fffa80dc4492fedaa90cbc4ee6f5520568826dfb31ed9c8c161224349f6b82f5'
     };
-    if (this.scatter) {
-      this.eos = this.scatter.eos(this.network, Eos, {chainId: this.network.chainId}, 'https');
+    if (this.arkid) {
+      this.rsn = this.arkid.rsn(this.network, Rsn, {chainId: this.network.chainId}, 'https');
     }
 
   }
@@ -28,39 +28,39 @@ export class ScatterService {
   login() {
     this.load();
     const requirements = {accounts: [this.network]};
-    if (!this.scatter) {
-      alert("You need to install Scatter to use the form.");
+    if (!this.arkid) {
+      alert("You need to install ArisenID to use the form.");
       return;
     }
-    return this.scatter.getIdentity(requirements);
+    return this.arkid.getIdentity(requirements);
   }
 
   logout() {
-    this.scatter.forgetIdentity();
+    this.arkid.forgetIdentity();
   }
 
   isLoggedIn() {
-    return this.scatter && !!this.scatter.identity;
+    return this.arkid && !!this.arkid.identity;
   }
 
   accountName() {
-    if (!this.scatter || !this.scatter.identity) {
+    if (!this.arkid || !this.arkid.identity) {
       return;
     }
-    const account = this.scatter.identity.accounts.find(acc => acc.blockchain === 'eos');
+    const account = this.arkid.identity.accounts.find(acc => acc.blockchain === 'rsn');
     return account.name;
   }
 
   support(amount: string) {
     this.load();
-    const account = this.scatter.identity.accounts.find(acc => acc.blockchain === 'eos');
-    return this.eos.transfer(account.name, 'trackeraegis', amount + " EOS", 'Aegis Support');
+    const account = this.arkid.identity.accounts.find(acc => acc.blockchain === 'rsn');
+    return this.rsn.transfer(account.name, 'aidsupport', amount + " RSN", 'ArisenID Support');
   }
 
   refund() {
     this.load();
-    const account = this.scatter.identity.accounts.find(acc => acc.blockchain === 'eos');
+    const account = this.arkid.identity.accounts.find(acc => acc.blockchain === 'rsn');
     const options = {authorization: [`${account.name}@${account.authority}`]};
-    return this.eos.contract('trackeraegis').then(contract => contract.refund(account.name, options));
+    return this.rsn.contract('aidsupport').then(contract => contract.refund(account.name, options));
   }
 }

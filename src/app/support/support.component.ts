@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {EosService} from '../services/eos.service';
-import {ScatterService} from '../services/scatter.service';
+import {RsnService} from '../services/rsn.service';
+import {ArkIdService} from '../services/arkid.service';
 import {timer} from 'rxjs/index';
 import {takeWhile} from 'rxjs/operators';
 
@@ -19,12 +19,12 @@ export class SupportComponent implements OnInit {
 
   readonly contract = "trackeraegis";
 
-  constructor(private eosService: EosService,
-              private scatterService: ScatterService) {
+  constructor(private rsnService: RsnService,
+              private arkidService: ArkIdService) {
   }
 
   ngOnInit() {
-    this.scatterService.load();
+    this.arkidService.load();
     this.loadTables();
   }
 
@@ -34,7 +34,7 @@ export class SupportComponent implements OnInit {
     this.info = null;
     this.alive = false;
 
-    this.eosService.eos.getTableRows(
+    this.rsnService.rsn.getTableRows(
       {
         json: true,
         code: this.contract,
@@ -47,7 +47,7 @@ export class SupportComponent implements OnInit {
     });
 
 
-    this.eosService.eos.getTableRows(
+    this.rsnService.rsn.getTableRows(
       {
         json: true,
         code: this.contract,
@@ -59,7 +59,7 @@ export class SupportComponent implements OnInit {
       this.patrons = result.rows.sort(this.compare);
     });
 
-    this.eosService.eos.getTableRows(
+    this.rsnService.rsn.getTableRows(
       {
         json: true,
         code: this.contract,
@@ -73,16 +73,16 @@ export class SupportComponent implements OnInit {
   }
 
   isLogged() {
-    return this.scatterService.isLoggedIn();
+    return this.arkidService.isLoggedIn();
   }
 
   refund() {
     this.alive = true;
-    this.scatterService.refund().then(transaction => {
+    this.arkidService.refund().then(transaction => {
       timer(0, 3000).pipe(
         takeWhile(() => this.alive)
       ).subscribe(() => {
-        this.eosService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
+        this.rsnService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
           if (data) {
             this.loadTables();
           }
@@ -98,12 +98,12 @@ export class SupportComponent implements OnInit {
 
   support(amount: string) {
     this.alive = true;
-    this.scatterService.support(parseFloat(amount).toFixed(4)).then(transaction => {
+    this.arkidService.support(parseFloat(amount).toFixed(4)).then(transaction => {
       console.log(transaction);
       timer(0, 3000).pipe(
         takeWhile(() => this.alive)
       ).subscribe(() => {
-        this.eosService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
+        this.rsnService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
           if (data) {
 
             let confettiSettings = {
@@ -142,7 +142,7 @@ export class SupportComponent implements OnInit {
   }
 
   login() {
-    this.scatterService.login();
+    this.arkidService.login();
   }
 
 

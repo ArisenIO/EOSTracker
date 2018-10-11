@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  walletUrl: 'https://walleteos.com',
-  votingUrl: 'https://eosportal.io',
-  appName: 'EOS Tracker',
+  walletUrl: 'https://wallet.arisen.tools',
+  votingUrl: 'https://avote.io',
+  appName: 'Arisen Network Explorer',
   logoUrl: '/assets/logo.png',
-  blockchainUrl: 'https://eos.greymass.com',
-  chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
+  blockchainUrl: 'https://greatchain.arisennodes.io',
+  chainId: 'fffa80dc4492fedaa90cbc4ee6f5520568826dfb31ed9c8c161224349f6b82f5'
 };

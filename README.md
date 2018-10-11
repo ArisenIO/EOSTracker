@@ -1,14 +1,14 @@
-💎 EOS Tracker
+💎 ArisenExplorer
 ========================
 
-EOS Tracker is a Frontend based on Angular4 that connects to [EOS Tracker API](https://github.com/EOSEssentials/EOSTracker-API).
+ArisenExplorer is a Frontend based on Angular4 that connects to [ArisenExplorer API](https://github.com/arisenio/arisenexplorer-api).
 
 📌 Getting Started
 ------------
 
 ```bash
-$ git clone git@github.com:EOSEssentials/EOSTracker.git
-$ cd EOSTracker
+$ git clone git@github.com:arisenio/arisen-explorer.git
+$ cd arisen-explorer
 $ npm install
 ```
 

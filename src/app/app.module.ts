@@ -7,11 +7,11 @@ import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { SafeJsonPipe } from 'angular2-prettyjson';
 import { JsonPipe } from '@angular/common';
-import { EosService } from './services/eos.service';
+import { RsnService } from './services/rsn.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Ng2Webstorage } from 'ngx-webstorage';
-import { ScatterService } from './services/scatter.service';
+import { ArkIdService } from './services/arkid.service';
 import { AppService } from './services/app.service';
 import { LoggerService } from './services/logger.service';
 
@@ -39,8 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule
   ],
   providers: [
-    EosService,
-    ScatterService,
+    RsnService,
+    ArkIdService,
     AppService,
     LoggerService,
     { provide: JsonPipe, useClass: SafeJsonPipe }
