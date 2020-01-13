@@ -6,14 +6,15 @@
   <mat-card-content>
     <div class="table-container">
       <table>
-        <ng-container *ngIf="price.quotes?.USD as usd">
+        <ng-container *ngIf="price?.USD as usd">
+
           <tr>
             <td>Price</td>
-            <!-- <td>{{usd.price | currency:'USD'}} USD</td> -->
+            <td>${{usd.price.toFixed(4)}} USD</td>
           </tr>
           <tr>
             <td>Volume 24h</td>
-            <!-- <td>{{usd.volume_24h / 1000000 | currency:'USD':'symbol':'1.0-0'}}M USD</td> -->
+            <td>{{usd.volume24 / 1000000 | currency:'USD':'symbol':'1.0-0'}}M USD</td>
           </tr>
           <tr>
             <td>Market Cap</td>

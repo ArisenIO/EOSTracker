@@ -129,7 +129,10 @@ export class AppService {
   }
 
   getRSNTicker(): Observable<CMCTicker> {
-    return this.http.get<CMCTicker>('https://api.coinmarketcap.com/v2/ticker/1765/');
+    // let url = 'https://api.coinmarketcap.com/v2/ticker/1765/';
+    let url1 = 'https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/get_arisen_price'
+      console.log(this.http.get<CMCTicker>(url1))
+      return this.http.get<CMCTicker>(url1);
   }
 
   getBpJson(url: string): Observable<any> {
@@ -146,15 +149,15 @@ export class AppService {
 
 export interface CMCTicker {
   data?: {
-    name: string;
-    symbol: string;
-    quotes: {
+    // name: string;
+    // symbol: string;
+    // quotes: {
       USD: {
         price: number,
-        market_cap: number,
-        volume_24h: number
+        // market_cap: number,
+        volume24: number
       }
-    }
+    // }
   };
   metadata?: any
 }
