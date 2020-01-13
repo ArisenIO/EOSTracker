@@ -5,8 +5,8 @@
 
 export const environment = {
   production: true,
-  walletUrl: 'https://wallet.arisen.tools',
-  votingUrl: 'https://avote.io',
+  walletUrl: 'https://github.com/arisenio/avote/releases',
+  votingUrl: 'https://github.com/arisenio/avote/releases',
   appName: 'Arisen Network Explorer',
   logoUrl: '/assets/logo.png',
   blockchainUrl: 'https://greatchain.arisennodes.io',
