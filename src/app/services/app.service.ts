@@ -131,7 +131,6 @@ export class AppService {
   getRSNTicker(): Observable<CMCTicker> {
     // let url = 'https://api.coinmarketcap.com/v2/ticker/1765/';
     let url1 = 'https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/get_arisen_price'
-      console.log(this.http.get<CMCTicker>(url1))
       return this.http.get<CMCTicker>(url1);
   }
 

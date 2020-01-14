@@ -21,7 +21,14 @@
 
 <body>
   <app-root></app-root>
-
+  <script>
+    var global = global || window;
+    var Buffer = Buffer || [];
+    var process = process || {
+    env: { DEBUG: undefined },
+    version: []
+    };
+  </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="//www.googletagmanager.com/gtag/js?id=UA-138322-51"></script>
   <script>
