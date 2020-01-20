@@ -1,4 +1,4 @@
-<mat-card *ngIf="price">
+<mat-card >
   <mat-card-title fxLayout="row" fxLayoutAlign="start center">
     <mat-icon>attach_money</mat-icon>
     Price Info
@@ -6,15 +6,15 @@
   <mat-card-content>
     <div class="table-container">
       <table>
-        <ng-container *ngIf="price?.USD as usd">
+        <ng-container >
 
           <tr>
             <td>Price</td>
-            <td>${{usd.price.toFixed(4)}} USD</td>
+            <td>${{rsnprice}} USD</td>
           </tr>
           <tr>
             <td>Volume 24h</td>
-            <td>${{usd.volume24 / 1000000}}M USD</td>
+            <td>${{rsnvolume / 1000000}}M USD</td>
           </tr>
           <tr>
             <td>Market Cap</td>

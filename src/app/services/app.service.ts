@@ -69,12 +69,12 @@ export class AppService {
       }),
       share()
     );
-    this.rsnQuote$ = timer(0, RSN_QUOTE).pipe(
-      switchMap(() => this.getRSNTicker()),
-      filter(ticker => !!ticker.data),
-      map(ticker => ticker.data),
-      share()
-    );
+    // this.rsnQuote$ = timer(0, RSN_QUOTE).pipe(
+    //   switchMap(() => this.getRSNTicker()),
+    //   filter(ticker => !!ticker.data),
+    //   map(ticker => ticker.data),
+    //   share()
+    // );
     this.ramQuote$ = timer(0, RAM_QUOTE).pipe(
       switchMap(() => from(this.rsnService.rsn.getTableRows({
         json: true,
@@ -128,10 +128,10 @@ export class AppService {
     return this.http.get<any[]>(`https://raw.githubusercontent.com/arisenio/arisen-airdrops/master/tokens.json`);
   }
 
-  getRSNTicker(): Observable<CMCTicker> {
+  getRSNTicker()  {
     // let url = 'https://api.coinmarketcap.com/v2/ticker/1765/';
-    let url1 = 'https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/get_arisen_price'
-      return this.http.get<CMCTicker>(url1);
+    let url1 = 'https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/rsn_price_from_bts'
+      return this.http.get(url1);
   }
 
   getBpJson(url: string): Observable<any> {
@@ -152,9 +152,9 @@ export interface CMCTicker {
     // symbol: string;
     // quotes: {
       USD: {
-        price: number,
+        price: string,
         // market_cap: number,
-        volume24: number
+        // volume24: number
       }
     // }
   };
