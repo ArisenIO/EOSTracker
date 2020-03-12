@@ -3,13 +3,15 @@
     <button mat-icon-button fxHide.gt-sm (click)="onMenuToggle.emit()">
       <mat-icon>menu</mat-icon>
     </button>
-    <a class="brand" routerLink="/">
-      <img [src]="logoUrl" />
-      <span>{{ appName | translate }}</span>
-    </a>
+      <div>
+        <p style="margin-left: -18px; display: flex;">Important Note: This blockchain explorer is for exploring Arisen`s test network. Arisen`s main network officially launches April 16th, 2020. Follow the countdown to click
+          <a href='https://arisen.network/' target="blank" style="color:#71d479;">here</a>
+        </p>
+      <a class="brand" routerLink="/">
+        <img [src]="logoUrl" />
+        <span>{{ appName | translate }}</span>
+      </a>
+      </div>
   </div>
   <app-search (onSearchExpanded)="searchExpanded = $event" [ngClass]="searchExpanded ? 'search-expanded' : 'search-collapsed'"></app-search>
 </header>
-<div>
-  <p style="text-align: center;margin-left: 166px; color: cornflowerblue;">Important Note: This blockchain explorer is for exploring Arisen`s test network. Arisen`s main network officially launches April 16th, 2020. Follow the countdown to click<a target='blank' href='https://arisen.network' style="color: wheat;"> here</a></p>
-</div>
