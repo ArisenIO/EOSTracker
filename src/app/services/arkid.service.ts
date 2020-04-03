@@ -15,7 +15,7 @@ export class ArkIdService {
 
     this.network = {
       blockchain: 'rsn',
-      host: 'greatchain.arisennodes.io',
+      host: 'greatchains.arisennodes.io',
       port: 443,
       chainId: '136ce1b8190928711b8bb50fcae6c22fb620fd2c340d760873cf8f7ec3aba2b3'
     };

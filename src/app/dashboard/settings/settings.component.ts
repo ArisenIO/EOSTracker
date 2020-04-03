@@ -62,8 +62,8 @@ export const LANGUAGES = [
 ];
 
 export const APIS = [
-  { name: 'Arisen Dublin', endpoint: 'https://greatchain.arisennodes.io' },
-  { name: 'Arisen New York', endpoint: 'https://greatchain.arisennodes.io' },
-  { name: 'Arisen Great Chain', endpoint: 'https://greatchain.arisennodes.io' },
-  { name: 'Arisen Liberty', endpoint: 'https://greatchain.arisennodes.io' }
+  { name: 'Arisen Dublin', endpoint: 'https://greatchains.arisennodes.io' },
+  { name: 'Arisen New York', endpoint: 'https://greatchains.arisennodes.io' },
+  { name: 'Arisen Great Chain', endpoint: 'https://greatchains.arisennodes.io' },
+  { name: 'Arisen Liberty', endpoint: 'https://greatchains.arisennodes.io' }
 ]
