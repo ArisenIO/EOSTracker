@@ -1,12 +1,13 @@
-<header fxLayout="row" fxLayoutAlign="start center">
+<header >
+  <p style="margin: 5px; color: #ff8f03; font-size: 14px; display: flex;">Important Note: This blockchain explorer is for exploring Arisen`s test network. Arisen`s main network officially launches April 16th, 2020. Follow the countdown to 
+    <a href='https://arisen.network/' target="blank" style="color:#8A2BE2; margin-left:5px"> click here</a>
+  </p>
+  <div fxLayout="row" fxLayoutAlign="start center">
   <div fxFlex *ngIf="!searchExpanded">
     <button mat-icon-button fxHide.gt-sm (click)="onMenuToggle.emit()">
       <mat-icon>menu</mat-icon>
     </button>
       <div>
-        <p style="color: #ff8f03; font-size: 14px; display: flex;">Important Note: This blockchain explorer is for exploring Arisen`s test network. Arisen`s main network officially launches April 16th, 2020. Follow the countdown to 
-          <a href='https://arisen.network/' target="blank" style="color:#8A2BE2; margin-left:5px"> click here</a>
-        </p>
       <a class="brand" routerLink="/">
         <img [src]="logoUrl" />
         <span>{{ appName | translate }}</span>
@@ -14,4 +15,5 @@
       </div>
   </div>
   <app-search (onSearchExpanded)="searchExpanded = $event" [ngClass]="searchExpanded ? 'search-expanded' : 'search-collapsed'"></app-search>
+</div>
 </header>
