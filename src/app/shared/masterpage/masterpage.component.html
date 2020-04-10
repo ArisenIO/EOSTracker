@@ -1,7 +1,7 @@
 <app-header class="mat-elevation-z4" (onMenuToggle)="sidenav.toggle()"></app-header>
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="sidenavMode$ | async" [opened]="sidenavOpen$ | async" autoFocus="false" fixedInViewport="true"
-    fixedTopGap="70" class="mat-elevation-z4 top120">
+    fixedTopGap="50" class="mat-elevation-z4">
     <app-sidenav></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content fxLayout="column">
