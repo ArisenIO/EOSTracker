@@ -54,7 +54,7 @@ export class ArkIdService {
   support(amount: string) {
     this.load();
     const account = this.arkid.identity.accounts.find(acc => acc.blockchain === 'rsn');
-    return this.rsn.transfer(account.name, 'aidsupport', amount + " RSN", 'ArisenID Support');
+    return this.rsn.transfer(account.name, 'aidsupport', amount + " RIX", 'ArisenID Support');
   }
 
   refund() {
