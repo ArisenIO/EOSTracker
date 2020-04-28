@@ -31,7 +31,7 @@ export class AccountComponent implements OnInit {
     );
     this.account$ = this.name$.pipe(
       switchMap(name => this.rixService.getAccountRaw(name)),
-      tap(account => console.log('account', account))
+      // tap(account => console.log('account', account))
     );
     this.accountTokens$ = this.name$.pipe(
       switchMap(name => this.rixService.getAccountTokens(name))
