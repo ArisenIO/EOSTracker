@@ -8,6 +8,8 @@ import { AppService } from '../../../services/app.service';
 })
 export class ChainStatusComponent implements OnInit {
 
+  public rixprice: any = null;
+
   status$;
 
   constructor(
@@ -16,6 +18,12 @@ export class ChainStatusComponent implements OnInit {
 
   ngOnInit() {
     this.status$ = this.appService.info$;
+    
+    this.appService.getRIXTicker().subscribe((response: any) => {
+      if (response.data) {
+        this.rixprice = parseFloat(response.data.USD.price).toFixed(4)
+      }
+    })
   }
 
 }

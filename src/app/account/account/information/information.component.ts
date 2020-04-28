@@ -8,7 +8,7 @@ import { Component, OnChanges, Input } from '@angular/core';
 export class InformationComponent implements OnChanges {
 
   @Input() account;
-  @Input() rsnQuote;
+  @Input() rixQuote;
   @Input() ramQuote;
   balance: {
     liquid: number;
@@ -21,7 +21,7 @@ export class InformationComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges() {
-    if (this.account && this.rsnQuote && this.ramQuote) {
+    if (this.account && this.rixQuote && this.ramQuote) {
       this.balance = {
         liquid: this.account.core_liquid_balance ? Number(this.account.core_liquid_balance.replace('RIX', '')) : 0,
         ram: this.account.ram_quota * this.ramQuote.price,

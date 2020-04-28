@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { take } from 'rxjs/operators';
-import { RsnService } from '../../services/rsn.service';
+import { RixService } from '../../services/rix.service';
 
 @Component({
   templateUrl: './settings.component.html',
@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private rsnService: RsnService
+    private rixService: RixService
   ) { }
 
   ngOnInit() {
@@ -35,13 +35,13 @@ export class SettingsComponent implements OnInit {
 
     // setup api control
     this.apiControl = new FormControl();
-    this.rsnService.apiEndpoint$.pipe(
+    this.rixService.apiEndpoint$.pipe(
       take(1)
     ).subscribe(apiEndpoint => {
       this.apiControl.setValue(apiEndpoint);
     });
     this.apiControl.valueChanges.subscribe(apiEndpoint => {
-      this.rsnService.setApiEndpoint(apiEndpoint);
+      this.rixService.setApiEndpoint(apiEndpoint);
     });
   }
 
@@ -62,8 +62,8 @@ export const LANGUAGES = [
 ];
 
 export const APIS = [
-  { name: 'Arisen Dublin', endpoint: 'https://greatchains.arisennodes.io' },
-  { name: 'Arisen New York', endpoint: 'https://greatchains.arisennodes.io' },
-  { name: 'Arisen Great Chain', endpoint: 'https://greatchains.arisennodes.io' },
-  { name: 'Arisen Liberty', endpoint: 'https://greatchains.arisennodes.io' }
+  { name: 'RIX Dublin', endpoint: 'https://api1.rixdublin.io' },
+  { name: 'RIX New York', endpoint: 'http://api.rixnewyork.io' },
+  { name: 'RIX Proxy', endpoint: 'https://proxy.rixnode.tools' },
+  { name: 'Cypherglass', endpoint: 'http://api.cypherglass.com' }
 ]

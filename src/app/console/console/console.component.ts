@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
-import { RsnService } from '../../services/rsn.service';
+import { RixService } from '../../services/rix.service';
 
 @Component({
   selector: 'app-console',
@@ -13,19 +13,19 @@ export class ConsoleComponent implements OnInit {
   result$;
 
   constructor(
-    private rsnService: RsnService
+    private rixService: RixService
   ) { }
 
   ngOnInit() {
-    this.apiEndpoint$ = this.rsnService.apiEndpoint$;
+    this.apiEndpoint$ = this.rixService.apiEndpoint$;
   }
 
   getInfo() {
-    this.result$ = from(this.rsnService.rsn.getInfo({}));
+    this.result$ = from(this.rixService.rix.getInfo({}));
   }
 
   getBlock(block_num_or_id: number) {
-    this.result$ = from(this.rsnService.rsn.getBlock(block_num_or_id));
+    this.result$ = from(this.rixService.rix.getBlock(block_num_or_id));
   }
 
 }

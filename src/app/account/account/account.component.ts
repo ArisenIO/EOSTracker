@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RsnService } from '../../services/rsn.service';
+import { RixService } from '../../services/rix.service';
 import { AppService } from '../../services/app.service';
 import { Result } from '../../models';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private rsnService: RsnService,
+    private rixService: RixService,
     public app: AppService
   ) { }
 
@@ -30,23 +30,23 @@ export class AccountComponent implements OnInit {
       map(params => params.id)
     );
     this.account$ = this.name$.pipe(
-      switchMap(name => this.rsnService.getAccountRaw(name)),
+      switchMap(name => this.rixService.getAccountRaw(name)),
       tap(account => console.log('account', account))
     );
     this.accountTokens$ = this.name$.pipe(
-      switchMap(name => this.rsnService.getAccountTokens(name))
+      switchMap(name => this.rixService.getAccountTokens(name))
     );
     this.accountActions$ = this.name$.pipe(
-      switchMap(name => this.rsnService.getAccountActions(name))
+      switchMap(name => this.rixService.getAccountActions(name))
     );
     this.accountAbi$ = this.name$.pipe(
-      switchMap(name => this.rsnService.getAbi(name))
+      switchMap(name => this.rixService.getAbi(name))
     );
   }
 
   loadMore(sequence: number) {
     this.accountNewActions$ = this.name$.pipe(
-      switchMap(name => this.rsnService.getAccountActions(name, sequence))
+      switchMap(name => this.rixService.getAccountActions(name, sequence))
     );
   }
 

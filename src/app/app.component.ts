@@ -12,7 +12,7 @@ declare let ga: Function;
 })
 
 export class AppComponent {
-  title = 'Arisen Blockchain Tracker | Arisen';
+  title = 'RIX Tracker | RixTracker.io';
   @LocalStorage()
   language: any;
 
