@@ -68,7 +68,7 @@
               <br> NET: {{this.balance.net | number:'1.0-4'}} RIX
               <br> RAM: {{this.balance.ram | number:'1.0-4'}} RIX
               <br> Total RIX: {{this.balance.total | number:'1.0-4'}} RIX
-              <br> Total USD: {{this.balance.total * this.rixQuote.price | currency}}
+              <br> Total USD: {{this.balance.total * rixprice| number:'1.0-5'}} USD
             </div>
           </td>
         </tr>
