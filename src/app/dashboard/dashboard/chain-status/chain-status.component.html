@@ -1,7 +1,10 @@
 <mat-card *ngIf="(status$ | async) as status">
   <mat-card-title fxLayout="row" fxLayoutAlign="start center">
     <mat-icon>network_check</mat-icon>
-    {{ 'Network Info' | translate }}
+    <div class="cstmHeader">
+      <p> {{ 'Network Info' | translate }} </p>
+      <p class="cstmFnt">Price : {{rixprice?rixprice:"--"}} USD/RIX</p>
+    </div>
   </mat-card-title>
   <mat-card-content class="table-container">
     <table>

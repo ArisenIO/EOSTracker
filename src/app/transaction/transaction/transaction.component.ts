@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RsnService } from '../../services/rsn.service';
+import { RixService } from '../../services/rix.service';
 import { Result } from '../../models';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -15,12 +15,12 @@ export class TransactionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private rsnService: RsnService
+    private rixService: RixService
   ) { }
 
   ngOnInit() {
     this.transaction$ = this.route.params.pipe(
-      switchMap(params => this.rsnService.getTransactionRaw(+params.blockId, params.id))
+      switchMap(params => this.rixService.getTransactionRaw(+params.blockId, params.id))
     );
   }
 

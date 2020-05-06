@@ -6,4 +6,4 @@ interface NodeModule {
 
 interface Window { ConfettiGenerator: any }
 
-declare module 'arisenjsv1';
+declare module '@arisencore/api';

@@ -1,14 +1,14 @@
-💎 ArisenExplorer
+💎 RIX Tracker
 ========================
 
-ArisenExplorer is a Frontend based on Angular4 that connects to [ArisenExplorer API](https://github.com/arisenio/arisenexplorer-api).
+RIX Tracker is a Frontend based on Angular4 that connects to [RIX Tracker API](https://github.com/RIXEssentials/RIXTracker-API).
 
 📌 Getting Started
 ------------
 
 ```bash
-$ git clone git@github.com:arisenio/arisen-explorer.git
-$ cd arisen-explorer
+$ git clone git@github.com:RIXEssentials/RIXTracker.git
+$ cd RIXTracker
 $ npm install
 ```
 

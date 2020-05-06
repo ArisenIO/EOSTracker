@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RsnService } from './rsn.service';
+import { RixService } from './rix.service';
 import { Observable, Subject, timer, from, forkJoin, of } from 'rxjs';
 import { map, filter, share, withLatestFrom, switchMap, catchError, take } from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
-const RSN_QUOTE = 60000;
+const RIX_QUOTE = 60000;
 const RAM_QUOTE = 60000;
 const GET_INFO_INTERVAL = 5000;
 
@@ -17,7 +18,7 @@ export class AppService {
 
   latestBlockNumber$ = this.latestBlockNumberSource.asObservable();
   isMaintenance$: Observable<boolean>;
-  rsnQuote$: Observable<any>;
+  rixQuote$: Observable<any>;
   ramQuote$: Observable<any>;
   info$: Observable<any>;
   latestBlock$: Observable<any>;
@@ -26,21 +27,21 @@ export class AppService {
 
   constructor(
     private http: HttpClient,
-    private rsnService: RsnService
+    private rixService: RixService
   ) {
     this.info$ = timer(0, GET_INFO_INTERVAL).pipe(
-      switchMap(() => this.rsnService.getDeferInfo()),
+      switchMap(() => this.rixService.getDeferInfo()),
       share()
     );
     this.latestBlock$ = this.info$.pipe(
-      switchMap((info: any) => from(this.rsnService.getDeferBlock(info.head_block_num))),
+      switchMap((info: any) => from(this.rixService.getDeferBlock(info.head_block_num))),
       share()
     );
     this.recentBlocks$ = this.latestBlock$.pipe(
       switchMap((block: any) => {
         const blockNumber: number = block.block_num;
         const blockNumbers: number[] = [blockNumber - 1, blockNumber - 2, blockNumber - 3, blockNumber - 4];
-        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNum => this.rsnService.getDeferBlock(blockNum).pipe(catchError(() => of(null))));
+        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNum => this.rixService.getDeferBlock(blockNum).pipe(catchError(() => of(null))));
         return forkJoin(blockNumbers$).pipe(
           map((blocks) => [block, ...blocks].filter(block => block !== null))
         );
@@ -69,14 +70,14 @@ export class AppService {
       }),
       share()
     );
-    // this.rsnQuote$ = timer(0, RSN_QUOTE).pipe(
-    //   switchMap(() => this.getRSNTicker()),
-    //   filter(ticker => !!ticker.data),
-    //   map(ticker => ticker.data),
-    //   share()
-    // );
+    this.rixQuote$ = timer(0, RIX_QUOTE).pipe(
+      switchMap(() => this.getRIXTicker()),
+      filter(ticker => !!ticker.data),
+      map(ticker => ticker.data),
+      share()
+    );
     this.ramQuote$ = timer(0, RAM_QUOTE).pipe(
-      switchMap(() => from(this.rsnService.rsn.getTableRows({
+      switchMap(() => from(this.rixService.rix.getTableRows({
         json: true,
         code: "arisen",
         scope: "arisen",
@@ -113,7 +114,7 @@ export class AppService {
           blockNumbers.push(i);
         }
         const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNumber => {
-          return this.rsnService.getDeferBlock(blockNumber).pipe(
+          return this.rixService.getDeferBlock(blockNumber).pipe(
             catchError(() => of(null))
           );
         });
@@ -125,13 +126,11 @@ export class AppService {
   }
 
   getTokens(): Observable<any[]> {
-    return this.http.get<any[]>(`https://raw.githubusercontent.com/arisenio/arisen-airdrops/master/tokens.json`);
+    return this.http.get<any[]>(environment.tokensUrl);
   }
 
-  getRSNTicker()  {
-    // let url = 'https://api.coinmarketcap.com/v2/ticker/1765/';
-    let url1 = 'https://nv6khovry9.execute-api.us-east-1.amazonaws.com/dev/rsn_price_from_bts'
-      return this.http.get(url1);
+  getRIXTicker(): Observable<CMCTicker> {
+    return this.http.get<CMCTicker>(environment.tickerUrl);
   }
 
   getBpJson(url: string): Observable<any> {
@@ -148,15 +147,15 @@ export class AppService {
 
 export interface CMCTicker {
   data?: {
-    // name: string;
-    // symbol: string;
-    // quotes: {
+    name: string;
+    symbol: string;
+    quotes: {
       USD: {
-        price: string,
-        // market_cap: number,
-        // volume24: number
+        price: number,
+        market_cap: number,
+        volume_24h: number
       }
-    // }
+    }
   };
   metadata?: any
 }

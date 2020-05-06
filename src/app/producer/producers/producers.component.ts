@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { RsnService } from '../../services/rsn.service';
+import { RixService } from '../../services/rix.service';
 import { Observable, of, timer } from 'rxjs';
 import { map, share, switchMap } from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
 
 @Component({
   templateUrl: './producers.component.html',
@@ -16,7 +17,7 @@ export class ProducersComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private rsnService: RsnService
+    private rixService: RixService
   ) { }
 
   ngOnInit() {
@@ -24,11 +25,11 @@ export class ProducersComponent implements OnInit {
       map(result => result.matches ? PRODUCERS_COLUMNS.filter((c: any) => (c !== 'url' && c !== 'numVotes')) : PRODUCERS_COLUMNS)
     );
     this.chainStatus$ = timer(0, 60000).pipe(
-      switchMap(() => this.rsnService.getChainStatus()),
+      switchMap(() => this.rixService.getChainStatus()),
       share()
     );
     this.producers$ = this.chainStatus$.pipe(
-      switchMap(chainStatus => this.rsnService.getProducers().pipe(
+      switchMap(chainStatus => this.rixService.getProducers().pipe(
         map(producers => {
           const votesToRemove = producers.reduce((acc, cur) => {
             const percentageVotes = cur.total_votes / chainStatus.total_producer_vote_weight * 100;
@@ -42,13 +43,23 @@ export class ProducersComponent implements OnInit {
             let reward = 0;
             let percentageVotes = producer.total_votes / chainStatus.total_producer_vote_weight * 100;
             let percentageVotesRewarded = producer.total_votes / (chainStatus.total_producer_vote_weight - votesToRemove) * 100;
-            if (position < 22) {
-              reward += 318;
+
+            if (environment.token === 'TLOS') {
+              if (position < 22) {
+                reward = 900;
+              } else if (position < 52) {
+                reward = 400;
+              }
+            } else {
+              if (position < 22) {
+                reward += 318;
+              }
+              reward += percentageVotesRewarded * 200;
+              if (reward < 100) {
+                reward = 0;
+              }
             }
-            reward += percentageVotesRewarded * 200;
-            if (reward < 100) {
-              reward = 0;
-            }
+
             return {
               ...producer,
               position: position,
@@ -65,9 +76,9 @@ export class ProducersComponent implements OnInit {
 
   private calculateVoteWeight() {
     //time epoch:
-    //https://github.com/arisenio/arisen/blob/master/contracts/arisenlib/time.hpp#L160
+    //https://github.com/RIXIO/rix/blob/master/contracts/arisenlib/time.hpp#L160
     //stake to vote
-    //https://github.com/arisenio/arisen/blob/master/contracts/arisen.system/voting.cpp#L105-L109
+    //https://github.com/RIXIO/rix/blob/master/contracts/arisen.system/voting.cpp#L105-L109
     let timestamp_epoch: number = 946684800000;
     let dates_: number = (Date.now() / 1000) - (timestamp_epoch / 1000);
     let weight_: number = Math.floor(dates_ / (86400 * 7)) / 52;  //86400 = seconds per day 24*3600

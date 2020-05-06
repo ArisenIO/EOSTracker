@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap, share, catchError } from 'rxjs/operators';
-import { RsnService } from '../../services/rsn.service';
+import { RixService } from '../../services/rix.service';
 import { AppService } from '../../services/app.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class ProducerComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private rsnService: RsnService,
+    private rixService: RixService,
     private appService: AppService
   ) { }
 
@@ -26,10 +26,10 @@ export class ProducerComponent implements OnInit {
     );
     this.producer$ = combineLatest(
       this.name$,
-      this.rsnService.getChainStatus(),
-      this.rsnService.getProducers(),
+      this.rixService.getChainStatus(),
+      this.rixService.getProducers(),
       this.name$.pipe(
-        switchMap(name => this.rsnService.getDeferAccount(name))
+        switchMap(name => this.rixService.getDeferAccount(name))
       )
     ).pipe(
       map(([name, chainStatus, producers, account]) => {

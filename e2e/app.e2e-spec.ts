@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('arisen-explorer App', () => {
+describe('rix-explorer App', () => {
   let page: AppPage;
 
   beforeEach(() => {

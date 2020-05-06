@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { AppService } from '../../../services/app.service';
-import { RsnService } from '../../../services/rsn.service';
+import { RixService } from '../../../services/rix.service';
 import { from } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -23,7 +23,7 @@ export class CustomTokensComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private appService: AppService,
-    private rsnService: RsnService
+    private rixService: RixService
   ) { }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class CustomTokensComponent implements OnInit {
 
   submit() {
     const token = this.tokenForm.value;
-    this.token$ = from(this.rsnService.rsn.getCurrencyBalance(token.account, this.data.account, token.symbol)).pipe(
+    this.token$ = from(this.rixService.rix.getCurrencyBalance(token.account, this.data.account, token.symbol)).pipe(
       filter((balance: string[]) => balance && balance.length > 0),
       map(balance => balance[0])
     );

@@ -1,4 +1,5 @@
-import * as Rsn from 'arisenjsv1';
+import * as Rix from '@arisencore/api';
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
@@ -8,19 +9,19 @@ import { Result } from '../models';
 import { LoggerService } from './logger.service';
 
 @Injectable()
-export class RsnService {
+export class RixService {
 
   private apiEndpointSource = new BehaviorSubject<string>(environment.blockchainUrl);
 
   public apiEndpoint$ = this.apiEndpointSource.asObservable();
-  public rsn: any;
+  public rix: any;
 
   constructor(
     private http: HttpClient,
     private logger: LoggerService
   ) {
     this.apiEndpoint$.subscribe(apiEndpoint => {
-      this.rsn = Rsn({
+      this.rix = Rix({
         httpEndpoint: apiEndpoint,
         blockId: environment.chainId
       });
@@ -52,28 +53,28 @@ export class RsnService {
   }
 
   getDeferInfo(): Observable<any> {
-    return defer(() => from(this.rsn.getInfo({})));
+    return defer(() => from(this.rix.getInfo({})));
   }
 
   getDeferBlock(id: string | number): Observable<any> {
-    return defer(() => from(this.rsn.getBlock(id)));
+    return defer(() => from(this.rix.getBlock(id)));
   }
 
   getDeferAccount(name: string): Observable<any> {
-    return defer(() => from(this.rsn.getAccount(name)));
+    return defer(() => from(this.rix.getAccount(name)));
   }
 
   getDeferTransaction(id: string): Observable<any> {
-    return defer(() => from(this.rsn.getTransaction(id)));
+    return defer(() => from(this.rix.getTransaction(id)));
   }
 
   getAccountRaw(name: string): Observable<Result<any>> {
-    const getAccount$ = defer(() => from(this.rsn.getAccount(name)));
+    const getAccount$ = defer(() => from(this.rix.getAccount(name)));
     return this.getResult<any>(getAccount$);
   }
 
   getAccountActions(name: string, position = -1, offset = -20): Observable<Result<any[]>> {
-    const getAccountActions$ = defer(() => from(this.rsn.getActions({
+    const getAccountActions$ = defer(() => from(this.rix.getActions({
       account_name: name,
       pos: position,
       offset: offset
@@ -85,9 +86,9 @@ export class RsnService {
   }
 
   getAccountTokens(name: string): Observable<Result<any[]>> {
-    const allTokens$: Observable<any[]> = this.http.get<any[]>(`https://raw.githubusercontent.com/arisenio/arisen-airdrops/master/tokens.json`);
+    const allTokens$: Observable<any[]> = this.http.get<any[]>(`https://raw.githubusercontent.com/rixcafe/rix-airdrops/master/tokens.json`);
     const getCurrencyBalance = function (token: any, account: string): Observable<any> {
-      return from(this.rsn.getCurrencyBalance(token.account, account, token.symbol)).pipe(
+      return from(this.rix.getCurrencyBalance(token.account, account, token.symbol)).pipe(
         map((balance: string[]) => ({
           ...token,
           balance: balance[0] ? Number(balance[0].split(' ', 1)) : 0
@@ -111,19 +112,19 @@ export class RsnService {
   }
 
   getAbi(name: string): Observable<Result<any>> {
-    const getCode$ = defer(() => from(this.rsn.getAbi({
+    const getCode$ = defer(() => from(this.rix.getAbi({
       account_name: name
     })));
     return this.getResult<any>(getCode$);
   }
 
   getBlockRaw(id: string | number): Observable<Result<any>> {
-    const getBlock$ = defer(() => from(this.rsn.getBlock(id)));
+    const getBlock$ = defer(() => from(this.rix.getBlock(id)));
     return this.getResult<any>(getBlock$);
   }
 
   getTransactionRaw(blockId: number, id: string): Observable<Result<any>> {
-    const getTransaction$ = defer(() => from(this.rsn.getTransaction({
+    const getTransaction$ = defer(() => from(this.rix.getTransaction({
       id: id,
       block_num_hint: blockId
     })));
@@ -131,7 +132,7 @@ export class RsnService {
   }
 
   getProducers() {
-    return from(this.rsn.getTableRows({
+    return from(this.rix.getTableRows({
       json: true,
       code: "arisen",
       scope: "arisen",
@@ -148,7 +149,7 @@ export class RsnService {
   }
 
   getChainStatus() {
-    return from(this.rsn.getTableRows({
+    return from(this.rix.getTableRows({
       json: true,
       code: "arisen",
       scope: "arisen",
