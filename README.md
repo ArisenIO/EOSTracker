@@ -1,14 +1,14 @@
 💎 RIX Tracker
 ========================
 
-RIX Tracker is a Frontend based on Angular4 that connects to [RIX Tracker API](https://github.com/RIXEssentials/RIXTracker-API).
+RIX Tracker is a Frontend based on Angular4 that connects to [RIX Tracker API](https://github.com/ArisenIO/arisen-explorer.git).
 
 📌 Getting Started
 ------------
 
 ```bash
-$ git clone git@github.com:RIXEssentials/RIXTracker.git
-$ cd RIXTracker
+$ git clone https://github.com/ArisenIO/arisen-explorer.git
+$ cd arisen-explorer
 $ npm install
 ```
 
