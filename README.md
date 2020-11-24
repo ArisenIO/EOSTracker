@@ -1,7 +1,7 @@
-💎 RIX Tracker
+💎 ARISEN Explorer
 ========================
 
-RIX Tracker is a Frontend based on Angular4 that connects to [RIX Tracker API](https://github.com/ArisenIO/arisen-explorer.git).
+ARISEN Explorer is a Frontend based on Angular4 that connects to [ARISEN Explorer API](https://github.com/ArisenIO/arisen-explorer.git).
 
 📌 Getting Started
 ------------
